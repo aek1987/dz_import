@@ -1,0 +1,46 @@
+@let r = store.result();
+@let f = store.form();
+
+<aside aria-live="polite">
+  <div class="card sum">
+    <p class="lab">Coût total rendu, {{ store.type() === 'occ' ? 'occasion de moins de 3 ans' : 'neuf' }}</p>
+    <p class="total">{{ r.total | da }} <small>DA</small></p>
+    <p class="sub">Dont {{ r.taxes | da }} DA de droits et taxes, soit {{ store.taxShare() }} % de la valeur CIF.</p>
+
+    <div class="bar" role="img" aria-label="Répartition du coût total">
+      @for (s of store.parts(); track s.k; let i = $index) {
+        <i [style.width.%]="store.shares()[i]" [style.background]="s.c"></i>
+      }
+    </div>
+    <ul class="leg">
+      @for (s of store.parts(); track s.k) {
+        <li><i [style.background]="s.c"></i>{{ s.k }}<b>{{ s.v | da }} DA</b></li>
+      }
+    </ul>
+  </div>
+
+  <details class="card det">
+    <summary>Voir le détail du calcul</summary>
+    <table>
+      <tr><td>Prix FOB</td><td>{{ r.fob | da }}</td></tr>
+      <tr><td>Fret</td><td>{{ r.fret | da }}</td></tr>
+      <tr><td>Assurance</td><td>{{ r.ass | da }}</td></tr>
+      <tr class="b"><td>Valeur CIF</td><td>{{ r.cif | da }}</td></tr>
+      <tr><td>Droit de douane ({{ f.dd }} %)</td><td>{{ r.dd | da }}</td></tr>
+      <tr><td>TCS ({{ f.tcs }} %)</td><td>{{ r.tcs | da }}</td></tr>
+      @if (f.tic) { <tr><td>TIC ({{ f.tic }} %)</td><td>{{ r.tic | da }}</td></tr> }
+      @if (f.red) { <tr><td>Redevance ({{ f.red }} %)</td><td>{{ r.red | da }}</td></tr> }
+      <tr><td>TVA ({{ f.tva }} % sur {{ r.baseTva | da }})</td><td>{{ r.tva | da }}</td></tr>
+      <tr class="b"><td>Total droits et taxes</td><td>{{ r.taxes | da }}</td></tr>
+      <tr><td>Frais annexes</td><td>{{ r.frais | da }}</td></tr>
+      <tr class="b t"><td>Total (DA)</td><td>{{ r.total | da }}</td></tr>
+    </table>
+  </details>
+
+  <div class="acts noprint">
+    <button class="pri" type="button" (click)="print()">Imprimer ou enregistrer en PDF</button>
+    <a class="sec" [href]="whatsappUrl()" target="_blank" rel="noopener">Envoyer sur WhatsApp</a>
+    <button class="lnk" type="button" (click)="store.reset()">Réinitialiser</button>
+  </div>
+  <p class="warn">Simulation indicative. Les taux varient selon la cylindrée, la motorisation, l’origine et la loi de finances. Confirmez-les auprès de la Douane ou d’un transitaire. Taux mis à jour le : {{ meta.updatedAt }}.</p>
+</aside>

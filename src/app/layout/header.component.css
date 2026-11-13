@@ -1,0 +1,22 @@
+.nav-h { position: sticky; top: 0; z-index: 20; background: rgba(255, 255, 255, 0.88); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+.nav-in { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; height: 64px; display: flex; align-items: center; justify-content: space-between; position: relative; }
+.brand { display: flex; align-items: center; gap: 10px; font-size: 19px; letter-spacing: -0.01em; color: var(--pine); text-decoration: none; }
+.mark { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, var(--pine), var(--pine2)); color: #fff; font-weight: 800; font-size: 14px; }
+nav { display: flex; align-items: center; gap: 4px; }
+nav a { color: var(--ink); text-decoration: none; font-weight: 600; font-size: 15px; padding: 9px 14px; border-radius: 999px; transition: background 0.2s; }
+nav a:hover { background: var(--paper); }
+nav a.cta { background: var(--pine); color: #fff; margin-left: 8px; }
+nav a.cta:hover { background: var(--pine2); }
+.burger { display: none; width: 44px; height: 44px; border: 1px solid var(--line); background: #fff; border-radius: 12px; cursor: pointer; flex-direction: column; align-items: center; justify-content: center; gap: 5px; padding: 0; }
+.burger span { display: block; width: 18px; height: 2px; background: var(--pine); border-radius: 2px; transition: transform 0.25s, opacity 0.25s; }
+.burger[aria-expanded='true'] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.burger[aria-expanded='true'] span:nth-child(2) { opacity: 0; }
+.burger[aria-expanded='true'] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+@media (max-width: 900px) {
+  .burger { display: flex; }
+  nav { display: none; position: absolute; top: 64px; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 2px; background: #fff; border-bottom: 1px solid var(--line); padding: 10px 20px 16px; box-shadow: 0 12px 24px rgba(14, 59, 46, 0.12); }
+  nav.show { display: flex; }
+  nav a { padding: 13px 14px; border-radius: 10px; }
+  nav a.cta { margin: 8px 0 0; text-align: center; }
+}

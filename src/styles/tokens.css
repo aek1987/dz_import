@@ -1,0 +1,24 @@
+/* Design tokens : modifier ici pour changer l'identité visuelle du site */
+:root {
+  --pine: #0e3b2e;
+  --pine2: #1b5a45;
+  --gold: #b88a2e;
+  --gold-hover: #a37622;
+  --ink: #17211c;
+  --mute: #5b6860;
+  --line: #dfe5e0;
+  --paper: #f1f4f0;
+  --card: #ffffff;
+  --bg: #f7f8f5;
+
+  /* Couleurs du graphique de répartition */
+  --c-cif: #e9efe9;
+  --c-dd: #d9a441;
+  --c-tcs: #8fae9d;
+  --c-tva: #6f93b5;
+  --c-frais: #5f7f71;
+
+  --radius: 14px;
+  --font: Manrope, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --maxw: 1120px;
+}

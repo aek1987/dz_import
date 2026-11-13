@@ -1,0 +1,11 @@
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { margin: 0; font-family: var(--font); background: var(--bg); color: var(--ink); line-height: 1.5; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+:focus-visible { outline: 3px solid rgba(27, 90, 69, 0.45); outline-offset: 2px; }
+
+@media print {
+  body { background: #fff; }
+  .noprint { display: none !important; }
+  details > * { display: block; }
+}
