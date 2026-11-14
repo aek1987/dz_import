@@ -2,7 +2,7 @@ import { Component, computed, inject } from '@angular/core';
 import { SimulatorStore } from '../simulator.store';
 import { DaPipe } from '../../../shared/da.pipe';
 import { SITE } from '../../../core/site.config';
-import { TARIFF_META } from '../../../core/tariff.data';
+import { TARIFF_META } from '../../../core/default.data';
 
 @Component({
   selector: 'app-simulator-result',

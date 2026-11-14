@@ -17,7 +17,7 @@ export interface SimulationInput {
   fob: number;
   fret: number;
   /** Assurance en % du FOB */
-  assPct: number;
+  ass: number;
   /** Taux de change : DA pour 1 unité de devise */
   fx: number;
   dd: number;

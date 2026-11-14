@@ -10,7 +10,8 @@ import { SimulationInput, SimulationResult } from '../../core/models';
 export function calculate(i: SimulationInput): SimulationResult {
   const fob = i.fob * i.fx;
   const fret = i.fret * i.fx;
-  const ass = (fob * i.assPct) / 100;
+
+const ass = i.ass; 
   const cif = fob + fret + ass;
 
   const dd = (cif * i.dd) / 100;

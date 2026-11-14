@@ -45,11 +45,11 @@
     <app-number-field id="fob" label="Prix d’achat du véhicule (FOB)" [unit]="cur" [value]="f.fob"
       (valueChange)="store.patch({ fob: $event })" />
     <div class="two">
-      <app-number-field id="fret" label="Fret maritime" [unit]="cur" [value]="f.fret"
-        (valueChange)="store.patch({ fret: $event })" />
-      <app-number-field id="ass" label="Assurance" unit="% FOB" step="0.01" [value]="f.assPct"
-        (valueChange)="store.patch({ assPct: $event })" />
-    </div>
+  <app-number-field id="fret" label="Fret maritime" [unit]="cur" [value]="f.fret"
+    (valueChange)="store.patch({ fret: $event })" />
+  <app-number-field id="ass" label="Assurance" unit="DA" [value]="f.ass"
+    (valueChange)="store.patch({ ass: $event })" />
+</div>
    
     <app-number-field id="fx" label="Taux de change" [unit]="'DA pour 1 ' + cur" step="0.01" [value]="f.fx"
       (valueChange)="store.patch({ fx: $event })" />

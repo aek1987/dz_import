@@ -1,6 +1,6 @@
 import { Injectable, computed, signal } from '@angular/core';
 import { Currency, SimulationInput, TariffLine, VehicleType } from '../../core/models';
-import { DEFAULT_FX, DEFAULT_RATES, DEFAULT_TARIFF_INDEX, TARIFF } from '../../core/tariff.data';
+import { DEFAULT_FRET, DEFAULT_FX, DEFAULT_RATES, DEFAULT_TARIFF_INDEX, TARIFF } from '../../core/default.data';
 import { CATALOGUE, MARQUES } from '../../core/vehicles.data'; // AJOUT
 import { calculate } from './customs.calculator';
 
@@ -53,11 +53,10 @@ export class SimulatorStore {
     this.line.set(l);
     this.patch({ dd: l.dd });
   }
-
-  setCurrency(c: Currency) {
-    this.currency.set(c);
-    this.patch({ fx: DEFAULT_FX[c] });
-  }
+setCurrency(c: Currency) {
+  this.currency.set(c);
+  this.patch({ fx: DEFAULT_FX[c], fret: DEFAULT_FRET[c] });
+}
 
   reset() {
     const l = TARIFF[DEFAULT_TARIFF_INDEX];
@@ -73,7 +72,8 @@ export class SimulatorStore {
       modele: '', // AJOUT
       fob: 10000,
       fret: 800,
-      assPct: 0.5,
+      // après
+      ass: 7500,
       fx: DEFAULT_FX.EUR,
       dd: l.dd,
       ...DEFAULT_RATES,

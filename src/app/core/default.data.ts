@@ -31,3 +31,7 @@ export const DEFAULT_RATES = { tcs: 2, tva: 19, tic: 0, red: 0 } as const;
 export const DEFAULT_FX: Record<Currency, number> = { EUR: 150, USD: 135 };
 
 export const CURRENCIES: readonly Currency[] = ['EUR', 'USD'];
+export const DEFAULT_FRET: Record<Currency, number> = {
+  EUR: 2000,
+  USD: 1500,
+};
