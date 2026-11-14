@@ -2,32 +2,52 @@
 @let cur = store.currency();
 
 <form (submit)="$event.preventDefault()">
-  <fieldset class="card">
+    <fieldset class="card">
     <legend>1. Véhicule</legend>
-   <div class="two">
-  <div>
-    <label for="marque">Marque</label>
-    <select id="marque" (change)="store.setMarque($any($event.target).value)">
+
+    <div class="two">
+      <div>
+        <label for="marque">Marque</label>
+        <select id="marque" (change)="store.setMarque($any($event.target).value)">
+          <option value="">Choisir…</option>
+          @for (m of store.marques; track m) {
+          <option [value]="m" [selected]="m === f.marque">{{ m }}</option>
+          }
+        </select>
+      </div>
+      <div>
+        <label for="modele">Modèle</label>
+        <select id="modele" [disabled]="!f.marque"
+          (change)="store.setModele($any($event.target).value)">
+          <option value="">Choisir…</option>
+          @for (mo of store.modeles(); track mo) {
+          <option [value]="mo" [selected]="mo === f.modele">{{ mo }}</option>
+          }
+        </select>
+      </div>
+    </div>
+
+    <label for="version">Version</label>
+    <select id="version" [disabled]="!store.versions().length"
+      (change)="store.selectVersion(+$any($event.target).value)">
       <option value="">Choisir…</option>
-      @for (m of store.marques; track m) {
-      <option [value]="m" [selected]="m === f.marque">{{ m }}</option>
+      @for (v of store.versions(); track v.n) {
+      <option [value]="v.n" [selected]="v.n === store.version()?.n">{{ v.label }}</option>
       }
     </select>
-  </div>
-  <div>
-    <label for="modele">Modèle</label>
-    <select id="modele" [disabled]="!f.marque"
-      (change)="store.patch({ modele: $any($event.target).value })">
-      <option value="">Choisir…</option>
-      @for (mo of store.modeles(); track mo) {
-      <option [value]="mo" [selected]="mo === f.modele">{{ mo }}</option>
-      }
-    </select>
-  </div>
-</div>
 
     <app-segmented label="État du véhicule" [options]="types" [value]="store.type()"
-      (valueChange)="store.type.set($event)" />
+      (valueChange)="store.setType($event)" />
+
+    @if (store.type() === 'occ') {
+    <app-segmented label="Âge du véhicule" [options]="ages" [value]="store.age()"
+      (valueChange)="store.setAge($event)" />
+    }
+
+    @if (store.refUnavailable()) {
+    <p class="hint">Valeur de référence non disponible pour cet âge : saisissez le FOB manuellement.</p>
+    }
+
     <label for="sp">Motorisation et cylindrée</label>
     <select id="sp" (change)="onLine($event)">
       @for (s of store.tariff; track s.code) {
@@ -35,25 +55,28 @@
       }
     </select>
 
+   
+
 
     <p class="hint">Droit de douane appliqué : {{ f.dd }} %</p>
   </fieldset>
 
   <fieldset class="card">
     <legend>2. Prix et transport</legend>
+    <p>TEST marque={{ f.marque }} | modele={{ f.modele }} | nb versions={{ store.versions().length }} | version={{ store.version()?.n }} | FOB={{ f.fob }}</p>
     <app-segmented label="Devise" [options]="currencies" [value]="cur" (valueChange)="store.setCurrency($event)" />
     <app-number-field id="fob" label="Prix d’achat du véhicule (FOB)" [unit]="cur" [value]="f.fob"
       (valueChange)="store.patch({ fob: $event })" />
     <div class="two">
-  <app-number-field id="fret" label="Fret maritime" [unit]="cur" [value]="f.fret"
-    (valueChange)="store.patch({ fret: $event })" />
-  <app-number-field id="ass" label="Assurance" unit="DA" [value]="f.ass"
-    (valueChange)="store.patch({ ass: $event })" />
-</div>
-   
+      <app-number-field id="fret" label="Fret maritime" [unit]="cur" [value]="f.fret"
+        (valueChange)="store.patch({ fret: $event })" />
+      <app-number-field id="ass" label="Assurance" unit="DA" [value]="f.ass"
+        (valueChange)="store.patch({ ass: $event })" />
+    </div>
+
     <app-number-field id="fx" label="Taux de change" [unit]="'DA pour 1 ' + cur" step="0.01" [value]="f.fx"
       (valueChange)="store.patch({ fx: $event })" />
-    
+
     <app-number-field id="frais" label="Port, transitaire, homologation" unit="DA" [value]="f.frais"
       (valueChange)="store.patch({ frais: $event })" />
   </fieldset>

@@ -4,6 +4,7 @@ import { SegmentedComponent, SegmentOption } from '../../../shared/segmented.com
 import { NumberFieldComponent } from '../../../shared/number-field.component';
 import { CURRENCIES } from '../../../core/default.data';
 import { Currency, VehicleType } from '../../../core/models';
+import { AgeKey } from '../../../core/vehicles.data';
 
 @Component({
   selector: 'app-simulator-form',
@@ -13,7 +14,11 @@ import { Currency, VehicleType } from '../../../core/models';
 })
 export class SimulatorFormComponent {
   readonly store = inject(SimulatorStore);
-
+  readonly ages: readonly SegmentOption<AgeKey>[] = [
+    { value: 'u1', label: '< 1 an' },
+    { value: 'u2', label: '< 2 ans' },
+    { value: 'u3', label: '< 3 ans' },
+  ];
   readonly types: readonly SegmentOption<VehicleType>[] = [
     { value: 'occ', label: 'Occasion < 3 ans' },
     { value: 'neuf', label: 'Neuf' },
