@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { SimulatorStore } from './simulator.store';
-import { SegmentedComponent, SegmentOption } from '../../shared/segmented.component';
-import { NumberFieldComponent } from '../../shared/number-field.component';
-import { CURRENCIES } from '../../core/tariff.data';
-import { Currency, VehicleType } from '../../core/models';
+import { SimulatorStore } from '../simulator.store';
+import { SegmentedComponent, SegmentOption } from '../../../shared/segmented.component';
+import { NumberFieldComponent } from '../../../shared/number-field.component';
+import { CURRENCIES } from '../../../core/tariff.data';
+import { Currency, VehicleType } from '../../../core/models';
 
 @Component({
   selector: 'app-simulator-form',

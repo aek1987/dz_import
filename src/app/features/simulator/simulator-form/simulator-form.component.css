@@ -1,0 +1,95 @@
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+}
+
+.card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 22px;
+    margin: 0;
+    min-width: 0;
+}
+
+legend {
+    font-weight: 700;
+    font-size: 17px;
+    padding: 0;
+    float: left;
+    width: 100%;
+    margin-bottom: 14px;
+}
+
+fieldset.card>*:not(legend) {
+    clear: both;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    font-size: 14px;
+    margin: 16px 0 6px;
+}
+
+select {
+    width: 100%;
+    min-height: 48px;
+    border: 1px solid #c5ccc7;
+    border-radius: 10px;
+    background: #fff;
+    padding: 0 12px;
+    font: 500 15px var(--font);
+    color: var(--ink);
+}
+
+select:focus {
+    border-color: var(--pine2);
+    box-shadow: 0 0 0 3px rgba(27, 90, 69, 0.18);
+    outline: 0;
+}
+
+.hint {
+    margin: 8px 0 0;
+    color: var(--mute);
+    font-size: 13px;
+}
+
+.two {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 14px;
+}
+
+summary {
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 17px;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+summary::after {
+    content: '+';
+    color: var(--mute);
+    font-weight: 500;
+}
+
+details[open]>summary::after {
+    content: '−';
+}
+
+@media (max-width: 900px) {
+    .card {
+        padding: 18px;
+    }
+}
+
+@media (max-width: 420px) {
+    .two {
+        grid-template-columns: 1fr;
+    }
+}

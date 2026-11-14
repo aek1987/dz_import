@@ -1,6 +1,7 @@
 import { Injectable, computed, signal } from '@angular/core';
 import { Currency, SimulationInput, TariffLine, VehicleType } from '../../core/models';
 import { DEFAULT_FX, DEFAULT_RATES, DEFAULT_TARIFF_INDEX, TARIFF } from '../../core/tariff.data';
+import { CATALOGUE, MARQUES } from '../../core/vehicles.data'; // AJOUT
 import { calculate } from './customs.calculator';
 
 @Injectable({ providedIn: 'root' })
@@ -12,10 +13,11 @@ export class SimulatorStore {
   readonly line = signal<TariffLine>(TARIFF[DEFAULT_TARIFF_INDEX]);
   readonly form = signal<SimulationInput>(this.defaults(TARIFF[DEFAULT_TARIFF_INDEX]));
 
-  readonly result = computed(() => {
-    const f = this.form();
-    return calculate({ ...f, fx: this.currency() === 'DZD' ? 1 : f.fx });
-  });
+  // AJOUT : liste des marques et modèles de la marque choisie
+  readonly marques = MARQUES;
+  readonly modeles = computed(() => CATALOGUE[this.form().marque] ?? []);
+
+  readonly result = computed(() => calculate(this.form()));
 
   readonly taxShare = computed(() => {
     const r = this.result();
@@ -42,6 +44,11 @@ export class SimulatorStore {
     this.form.update((f) => ({ ...f, ...p }));
   }
 
+  // AJOUT : changer la marque remet le modèle à zéro
+  setMarque(marque: string) {
+    this.patch({ marque, modele: '' });
+  }
+
   selectLine(l: TariffLine) {
     this.line.set(l);
     this.patch({ dd: l.dd });
@@ -61,6 +68,16 @@ export class SimulatorStore {
   }
 
   private defaults(l: TariffLine): SimulationInput {
-    return { fob: 10000, fret: 800, assPct: 0.5, fx: DEFAULT_FX.EUR, dd: l.dd, ...DEFAULT_RATES, frais: 60000 };
+    return {
+      marque: '', // AJOUT
+      modele: '', // AJOUT
+      fob: 10000,
+      fret: 800,
+      assPct: 0.5,
+      fx: DEFAULT_FX.EUR,
+      dd: l.dd,
+      ...DEFAULT_RATES,
+      frais: 60000,
+    };
   }
 }

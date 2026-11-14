@@ -28,6 +28,6 @@ export const DEFAULT_TARIFF_INDEX = 2;
 export const DEFAULT_RATES = { tcs: 2, tva: 19, tic: 0, red: 0 } as const;
 
 /** Taux de change par défaut (DA pour 1 unité). À ajuster selon le marché. */
-export const DEFAULT_FX: Record<Currency, number> = { EUR: 150, USD: 135, DZD: 1 };
+export const DEFAULT_FX: Record<Currency, number> = { EUR: 150, USD: 135 };
 
-export const CURRENCIES: readonly Currency[] = ['EUR', 'USD', 'DZD'];
+export const CURRENCIES: readonly Currency[] = ['EUR', 'USD'];

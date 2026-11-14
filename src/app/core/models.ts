@@ -1,5 +1,5 @@
 export type VehicleType = 'occ' | 'neuf';
-export type Currency = 'EUR' | 'USD' | 'DZD';
+export type Currency = 'EUR' | 'USD' ;
 
 export interface TariffLine {
   code: string;
@@ -9,6 +9,11 @@ export interface TariffLine {
 }
 
 export interface SimulationInput {
+  /** Identification du véhicule (n'influence pas le calcul) */
+  marque: string;
+  modele: string;
+
+  
   fob: number;
   fret: number;
   /** Assurance en % du FOB */

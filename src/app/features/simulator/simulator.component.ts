@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { SimulatorStore } from './simulator.store';
-import { SimulatorFormComponent } from './simulator-form.component';
-import { SimulatorResultComponent } from './simulator-result.component';
+import { SimulatorFormComponent } from './simulator-form/simulator-form.component';
+import { SimulatorResultComponent } from './simulator-result/simulator-result.component';
 import { DaPipe } from '../../shared/da.pipe';
 
 @Component({
