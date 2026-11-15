@@ -32,6 +32,8 @@ export interface RefValue {
   fob: Fob;
   /** Texte affiché dans la liste des versions */
   label: string;
+  /** Tranche douanière déduite de l'énergie et de la cylindrée */
+  tranche: Tranche; 
 }
 
 export type Row = [
@@ -57,6 +59,7 @@ const ENERGIE_LABEL: Record<Energie, string> = {
   ELC: "Électrique",
 };
 
+
 export const REFERENCE_VALUES: RefValue[] = RAW.map(
   ([n, marque, modele, energie, cyl, origine, devise, neuf, a1, a2, a3]) => {
     const org = origine === "EU" ? "Europe" : "Autres pays";
@@ -70,10 +73,28 @@ export const REFERENCE_VALUES: RefValue[] = RAW.map(
       devise,
       fob: [neuf, a1, a2, a3] as Fob,
       label: `${ENERGIE_LABEL[energie]}${cyl ? " " + cyl + " cm³" : ""} · ${org} · n°${n}`,
+      tranche: trancheFromRow(energie, cyl),   // ← ligne ajoutée
     };
   },
 );
+export type Tranche =
+| "ESS_1000" | "ESS_1500" | "ESS_3000" | "ESS_PLUS"
+| "DSL_1500" | "DSL_2500" | "DSL_PLUS" | "HYB" | "ELC";
 
+export function trancheFromRow(energie: Energie, cyl: number | null): Tranche {
+  if (energie === "ELC") return "ELC";
+  if (energie === "HYB") return "HYB";
+  const c = cyl ?? 0;
+  if (energie === "ESS") {
+    if (c <= 1000) return "ESS_1000";
+    if (c <= 1500) return "ESS_1500";
+    if (c <= 3000) return "ESS_3000";
+    return "ESS_PLUS";
+  }
+  if (c <= 1500) return "DSL_1500";
+  if (c <= 2500) return "DSL_2500";
+  return "DSL_PLUS";
+}
 export const MARQUES: string[] = [
   ...new Set(REFERENCE_VALUES.map((r) => r.marque)),
 ].sort();
@@ -90,4 +111,5 @@ export function versionsOf(marque: string, modele: string): RefValue[] {
   return REFERENCE_VALUES.filter(
     (r) => r.marque === marque && r.modele === modele,
   );
+  
 }
