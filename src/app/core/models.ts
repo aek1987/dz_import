@@ -12,7 +12,7 @@ export interface SimulationInput {
   /** Identification du véhicule (n'influence pas le calcul) */
   marque: string;
   modele: string;
-
+  
   
   fob: number;
   fret: number;

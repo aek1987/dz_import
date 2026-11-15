@@ -4,7 +4,7 @@ import { SegmentedComponent, SegmentOption } from '../../../shared/segmented.com
 import { NumberFieldComponent } from '../../../shared/number-field.component';
 import { CURRENCIES } from '../../../core/default.data';
 import { Currency, VehicleType } from '../../../core/models';
-import { AgeKey } from '../../../core/vehicles.data';
+import { AgeKey } from '../../../core/vehicles';
 
 @Component({
   selector: 'app-simulator-form',

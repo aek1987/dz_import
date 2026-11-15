@@ -14,7 +14,7 @@ import {
   RefValue,
   modelesOf,
   versionsOf,
-} from '../../core/vehicles.data';
+} from '../../core/vehicles';
 import { calculate } from './customs.calculator';
 
 @Injectable({ providedIn: 'root' })
